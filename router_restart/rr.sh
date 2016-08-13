@@ -1,9 +1,9 @@
 #!/bin/bash
 folder=/etc/mysc/router_restart
 #folder=/git/tests/router_restart/
-host1=8.8.8.80
-host2=ya.ruu
-host3=mail.ruu
+host1=8.8.8.8
+host2=ya.ru
+host3=mail.ru
 a=0
 b=0
 c=0
@@ -56,11 +56,18 @@ if [ $d == 0 ]; then echo "Интернет не работает"
 	    $r1up
 	    sleep 10s
 	    $r1down
+	    echo "relay was restarted" > $folder/email
+	    date |awk -F ":" '{print $1">"$2">"$3}' >> $folder/email
 echo $count
 	    echo $count > $folder/count
 fi
 else echo "Интернет работает."
 echo "0">$folder/count
+    if [ -f $folder/email ]; then
+	cat $folder/email |ssmtp -s "router_restarted" n.v.shadrin
+	cd $folder && rm $folder/email
+    else exit
+    fi
 fi
 }
 fi
