@@ -47,8 +47,8 @@ if [ $d == 0 ]; then echo "Интернет не работает"
 	if [ $count -gt 5 ]; then
 		
 		$r1down
-		echo "уже было 5 попыток. Делаю паузу 10 min"
-		sleep 60s
+		echo "уже было 5 попыток. Делаю паузу 30 min"
+		sleep 1800s
 		echo "0">$folder/count
 		
 	else
@@ -58,6 +58,8 @@ if [ $d == 0 ]; then echo "Интернет не работает"
 	    $r1down
 	    echo "relay was restarted" > $folder/email
 	    date |awk -F ":" '{print $1">"$2">"$3}' >> $folder/email
+	    echo "count is" >> $folder/email
+	    echo $count >> $folder/email
 echo $count
 	    echo $count > $folder/count
 fi
