@@ -56,7 +56,8 @@ if [ $d == 0 ]; then echo "Интернет не работает"
 	    $r1up
 	    sleep 10s
 	    $r1down
-	    echo "relay was restarted" > $folder/email
+	    echo "kargos rpi" > $folder/email
+	    echo "relay was restarted" >> $folder/email
 	    date |awk -F ":" '{print $1">"$2">"$3}' >> $folder/email
 	    echo "count is" >> $folder/email
 	    echo $count >> $folder/email
