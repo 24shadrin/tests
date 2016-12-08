@@ -40,19 +40,20 @@ if ping -c 1 $host3; then let c=$c+1
 let d=$a+$b+$c
 
 echo $d
-
+echo $date
 if [ $d == 0 ]; then echo "Интернет не работает"
     count=$((count+1))
 
 	if [ $count -gt 5 ]; then
 		
 		$r1down
+		echo $date
 		echo "уже было 5 попыток. Делаю паузу 30 min"
 		sleep 1800s
 		echo "0">$folder/count
 		
 	else
-	
+	    echo $date
 	    $r1up
 	    sleep 10s
 	    $r1down
@@ -64,7 +65,9 @@ if [ $d == 0 ]; then echo "Интернет не работает"
 echo $count
 	    echo $count > $folder/count
 fi
-else echo "Интернет работает."
+else 
+echo `date |awk -F ":" '{print $1">"$2">"$3}'`
+echo "Интернет работает."
 echo "0">$folder/count
     if [ -f $folder/email ]; then
 	cat $folder/email |ssmtp -s "router_restarted" n.v.shadrin
